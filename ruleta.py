@@ -23,6 +23,39 @@ def definir_valores():
 
 cant_tiradas, corridas, num_elegido = definir_valores()
 
+def prom_corrida(lista):
+    promedios = []
+    suma = 0
+    for i, valor in enumerate(lista):
+        suma += valor
+        promedio = suma / (i + 1)
+        promedios.append(round(promedio,3))
+    return promedios
+
+
+def frecrel_corrida(lista):
+    frec_rel = []
+    acum = 0
+    for i, valor in enumerate(lista):
+        if valor == num_elegido: 
+            acum+=1  
+        fr= acum/(i+1)
+        frec_rel.append(round(fr,3))
+    return frec_rel
+
+def var_corrida(lista, promedios):
+    varianza = []
+    for i, valor in enumerate(lista):
+        var = ((valor - promedios[i])**2)/(i+1)
+        varianza.append(round(var))
+    return varianza
+
+def des_corrida(lista):
+    desvio = []
+    for varianza in lista:
+        desvio.append(round(plt.sqrt(varianza), 3))
+    return desvio
+
 for i in range(corridas):
         valores[0] = random.randint(0, 36)
         y1[0] = valores[0] 
@@ -59,5 +92,4 @@ plt.title('Gráfico de los Valores de las tiradas con Valor Constante Intermiten
 plt.legend()
 plt.grid(True)
 plt.show()
-
 
