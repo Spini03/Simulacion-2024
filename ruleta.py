@@ -30,6 +30,18 @@ def definir_valores():
 cant_tiradas, corridas, num_elegido = definir_valores()
 
 
+#listas valores esperados
+list_prom_esperado = []
+list_fr_esperada = []
+list_var_esperada = []
+list_des_esperado = []
+for l in range(cant_tiradas):
+    list_prom_esperado.append(prom_esperado)
+    list_fr_esperada.append(valor_fr_esperada)
+    list_var_esperada.append(valor_var_esperada)
+    list_des_esperado.append(valor_desvio_esperado)
+
+
 def prom_corrida(lista):
     promedios = []
     suma = 0
@@ -73,15 +85,19 @@ def graficar(i, prom, frecrel, var, des):
     titulo = 'Datos corrida ' + str(i + 1)
     fig.suptitle(titulo)
     axs[0].plot(prom)
+    axs[0].plot(list_prom_esperado)
     axs[0].set_xlabel('Número de tirada')
     axs[0].set_ylabel('Promedio')
     axs[1].plot(frecrel)
+    axs[1].plot(list_fr_esperada)
     axs[1].set_xlabel('Número de tirada')
     axs[1].set_ylabel('Frecuencia relativa')
     axs[2].plot(var)
+    axs[2].plot(list_var_esperada)
     axs[2].set_xlabel('Número de tirada')
     axs[2].set_ylabel('Varianza')
     axs[3].plot(des)
+    axs[3].plot(list_des_esperado)
     axs[3].set_xlabel('Número de tirada')
     axs[3].set_ylabel('Desvio')
     # plt.plot(y1, label='Tiradas', color='blue')
@@ -113,11 +129,3 @@ print("Lista de los promedios de cada tirada: ", prom)
 # print(sorted(valores_finales.items(), key=lambda x:x[1]))
 
 # print(todos_los_valores)
-
-
-total_tiradas = corridas * cant_tiradas
-
-x1 = list(range(cant_tiradas))
-
-frec_relativa_esperada = cant_tiradas / 36
-frec_absoluta_esperada = 20
