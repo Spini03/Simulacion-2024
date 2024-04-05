@@ -11,7 +11,6 @@ valor_desvio_esperado = 10.67707825
 todos_los_valores = []
 todas_las_tiradas = []
 valores = [1000]
-y = []
 prom = []
 frecrel = []
 var = []
@@ -67,10 +66,12 @@ def des_corrida(lista):
     return desvio
 
 
-def graficar(prom, frecrel, var, des):
+def graficar(i, prom, frecrel, var, des):
     fig, axs = plt.subplots(nrows=2, ncols=2)
     axs = axs.flatten()
 
+    titulo = 'Datos corrida ' + str(i + 1)
+    fig.suptitle(titulo)
     axs[0].plot(prom)
     axs[0].set_xlabel('Número de tirada')
     axs[0].set_ylabel('Promedio')
@@ -91,21 +92,20 @@ def graficar(prom, frecrel, var, des):
 
 
 for i in range(corridas):
-    y.clear()
-    valores[0] = random.randint(0, 36)
-    for j in range(1, cant_tiradas):
+    valores.clear()
+    for j in range(cant_tiradas):
         valores.append(random.randint(0, 36))
-        prom = prom_corrida(valores)
-        frecrel = frecrel_corrida(valores)
-        var = var_corrida(valores, prom)
-        des = des_corrida(valores)
+    prom = prom_corrida(valores)
+    frecrel = frecrel_corrida(valores)
+    var = var_corrida(valores, prom)
+    des = des_corrida(valores)
     todos_los_valores.append(valores)
     print(valores)
     aciertos_corrida = valores.count(num_elegido)
     print("Aciertos corrida: ", aciertos_corrida)
     aciertos = aciertos + aciertos_corrida
 
-    graficar(prom, frecrel, var, des)
+    graficar(i, prom, frecrel, var, des)
 
 print("Aciertos totales: ", aciertos)
 print("Lista de los promedios de cada tirada: ", prom)
