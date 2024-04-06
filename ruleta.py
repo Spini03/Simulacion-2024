@@ -114,7 +114,7 @@ for i in range(corridas):
     prom = prom_corrida(valores)
     frecrel = frecrel_corrida(valores)
     var = var_corrida(valores, prom)
-    des = des_corrida(valores)
+    des = des_corrida(var)
     todos_los_valores.append(valores)
     print(valores)
     aciertos_corrida = valores.count(num_elegido)
