@@ -3,11 +3,12 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 
+rul= np.arange(37)
 aciertos = 0
-prom_esperado = 18
+prom_esperado = np.mean(rul)
 valor_fr_esperada = 1 / 37
-valor_var_esperada = 114
-valor_desvio_esperado = 10.67707825
+valor_var_esperada = np.var(rul)
+valor_desvio_esperado = np.std(rul)
 todos_los_valores = []
 todas_las_tiradas = []
 valores = [1000]
@@ -124,7 +125,7 @@ for i in range(corridas):
     graficar(i, prom, frecrel, var, des)
 
 print("Aciertos totales: ", aciertos)
-print("Lista de los promedios de cada tirada: ", prom)
+#print("Lista de los promedios de cada tirada: ", prom)
 # valores_finales = dict(zip(todos_los_valores,map(lambda x: todos_los_valores.count(x),todos_los_valores)))
 # print(sorted(valores_finales.items(), key=lambda x:x[1]))
 
