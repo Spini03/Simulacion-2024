@@ -3,6 +3,7 @@ import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics as st
+import argparse #Para la gestion de argumentos de linea de comandos
 
 rul= np.arange(37)
 aciertos = 0
@@ -19,14 +20,24 @@ var = []
 des = []
 
 
+# def definir_valores():
+#     if len(sys.argv) != 7 or sys.argv[1] != "-c" or sys.argv[3] != "-n" or sys.argv[5] != "-e":
+#         print("Uso:python ruleta.py -c <cant_tiradas> -n <corridas> -e <num_elegido>")
+#         sys.exit(1)
+#     cant_tiradas = int(sys.argv[2])
+#     corridas = int(sys.argv[4])
+#     num_elegido = int(sys.argv[6])
+#     return cant_tiradas, corridas, num_elegido
+
 def definir_valores():
-    if len(sys.argv) != 7 or sys.argv[1] != "-c" or sys.argv[3] != "-n" or sys.argv[5] != "-e":
-        print("Uso:python ruleta.py -c <cant_tiradas> -n <corridas> -e <num_elegido>")
-        sys.exit(1)
-    cant_tiradas = int(sys.argv[2])
-    corridas = int(sys.argv[4])
-    num_elegido = int(sys.argv[6])
-    return cant_tiradas, corridas, num_elegido
+    parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
+    parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
+    parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
+    parser.add_argument('-e', '--num_elegido', type=int, required=True, help='Número elegido')
+    
+    args = parser.parse_args()
+    
+    return args.cant_tiradas, args.corridas, args.num_elegido
 
 
 cant_tiradas, corridas, num_elegido = definir_valores()
