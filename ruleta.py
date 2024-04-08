@@ -43,7 +43,7 @@ for l in range(cant_tiradas):
     list_var_esperada.append(valor_var_esperada)
     list_des_esperado.append(valor_desvio_esperado)
 
-
+"""
 def prom_corrida(lista):
     promedios = []
     suma = 0
@@ -78,7 +78,7 @@ def des_corrida(lista):
     for varianza in lista:
         desvio.append(round(np.sqrt(varianza), 3))
     return desvio
-
+"""
 
 def graficar(i, prom, frecrel, var, des):
     fig, axs = plt.subplots(nrows=2, ncols=2)
