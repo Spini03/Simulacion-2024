@@ -3,7 +3,7 @@
 ## Instalar simulador
 `
 git clone https://github.com/Spini03/Simulacion-2024
-cd ./TP01-Ruleta
+cd ./Simulacion-2024/TP01-Ruleta
 pip install -r requirements.txt
 `
 
