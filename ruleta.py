@@ -2,6 +2,7 @@ import random
 import sys
 import matplotlib.pyplot as plt
 import numpy as np
+import statistics as st
 
 rul= np.arange(37)
 aciertos = 0
@@ -110,17 +111,25 @@ def graficar(i, prom, frecrel, var, des):
 
 for i in range(corridas):
     valores.clear()
+    prom.clear()
+    frecrel.clear()
+    var.clear()
+    des.clear()
+    ganadas = 0
     for j in range(cant_tiradas):
-        valores.append(random.randint(0, 36))
-    prom = prom_corrida(valores)
-    frecrel = frecrel_corrida(valores)
-    var = var_corrida(valores, prom)
-    des = des_corrida(var)
+        num = random.randint(0, 36)
+        valores.append(num)
+        prom.append(np.mean(valores))
+        if num_elegido == num: 
+            ganadas += 1
+        frecrel.append(ganadas / (j + 1))
+        if j>0: 
+            var.append(st.variance(valores))
+            des.append(st.stdev(valores))
     todos_los_valores.append(valores)
     print(valores)
-    aciertos_corrida = valores.count(num_elegido)
-    print("Aciertos corrida: ", aciertos_corrida)
-    aciertos = aciertos + aciertos_corrida
+    print("Aciertos corrida: ", ganadas)
+    aciertos = aciertos + ganadas
 
     graficar(i, prom, frecrel, var, des)
 
