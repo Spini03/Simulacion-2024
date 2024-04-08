@@ -36,6 +36,14 @@ def definir_valores():
     parser.add_argument('-e', '--num_elegido', type=int, required=True, help='Número elegido')
     
     args = parser.parse_args()
+
+    if args.cant_tiradas <= 0:
+        print("Error: La cantidad de tiradas debe ser mayor que cero.")
+        sys.exit(1)
+        
+    if args.corridas <= 0:
+        print("Error: El número de corridas debe ser mayor que cero.")
+        sys.exit(1)
     
     return args.cant_tiradas, args.corridas, args.num_elegido
 
