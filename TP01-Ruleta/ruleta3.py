@@ -99,6 +99,8 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 
     for i in range(cant_corridas):
 
+        print(f"\n======== CORRIDA {i + 1} ========")
+        
         valores = []
         promedio = []
         frecrel = []
@@ -127,6 +129,7 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 
         graficar(promedio, frecrel, var, des, cant_tiradas, valores, i + 1)
 
+    print(f"\n======== FIN CORRIDAS ========\n")
     print("Aciertos totales: ", aciertos)
 
 
