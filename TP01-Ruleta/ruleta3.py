@@ -54,35 +54,41 @@ def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, valores, num_co
     fig.suptitle(titulo)
 
     # Frec Relativa
+    axs[0].set_title('Frecuencia Relativa del numero 14')
     axs[0].set_ylabel('Frecuencia relativa')
     axs[0].plot(frec_rel)
     axs[0].plot(list_frec_esperada)
     axs[0].set_xlabel('Número de tirada')
 
     # Promedio
+    axs[1].set_title('Promedio')
     axs[1].set_ylabel('Promedio')
     axs[1].plot(promedio)
     axs[1].plot(list_prom_esperado)
     axs[1].set_xlabel('Número de tirada')
 
     # Desvio
+    axs[2].set_title('Desvíos')
     axs[2].set_ylabel('Desvio')
     axs[2].plot(desvio)
     axs[2].plot(list_des_esperado)
     axs[2].set_xlabel('Número de tirada')
 
     # Varianza
+    axs[3].set_title('Varianza')
     axs[3].set_ylabel('Varianza')
     axs[3].plot(varianza)
     axs[3].plot(list_var_esperada)
     axs[3].set_xlabel('Número de tirada')
 
     # Frecuencia Acumulada
+    axs[4].set_title('Frecuencia Acumulada')
     axs[4].bar(range(37), np.histogram(valores, bins=range(38))[0])
     axs[4].set_ylabel('Frecuencia')
     axs[4].set_xlabel('Número')
 
     # Frecuecnia Relativa
+    axs[5].set_title('Frecuencia Relativa')
     axs[5].hist(valores, bins=range(38), density=True, alpha=0.75)
     axs[5].set_ylabel('Frecuencia')
     axs[5].set_xlabel('Número')
