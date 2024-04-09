@@ -2,6 +2,8 @@
 
 
 ## Detalles del proyecto
+https://www.overleaf.com/read/pjwbpmsvnhtj#d70d2a
+
 https://es.overleaf.com/8858426667ykznnttgjzsm#c1274b
 
 
