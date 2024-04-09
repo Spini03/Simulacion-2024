@@ -51,28 +51,28 @@ def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, num_corrida):
     titulo = 'Datos corrida ' + str(num_corrida)
     fig.suptitle(titulo)
 
-    # Promedio
-    axs[0].set_ylabel('Promedio')
-    axs[0].plot(promedio)
-    axs[0].plot(list_prom_esperado)
+    # Frec Relativa
+    axs[0].set_ylabel('Frecuencia relativa')
+    axs[0].plot(frec_rel)
+    axs[0].plot(list_frec_esperada)
     axs[0].set_xlabel('Número de tirada')
 
-    # Frec Relativa
-    axs[1].set_ylabel('Frecuencia relativa')
-    axs[1].plot(frec_rel)
-    axs[1].plot(list_frec_esperada)
+    # Promedio
+    axs[1].set_ylabel('Promedio')
+    axs[1].plot(promedio)
+    axs[1].plot(list_prom_esperado)
     axs[1].set_xlabel('Número de tirada')
 
-    # Varianza
-    axs[2].set_ylabel('Varianza')
-    axs[2].plot(varianza)
-    axs[2].plot(list_var_esperada)
-    axs[2].set_xlabel('Número de tirada')
-
     # Desvio
-    axs[3].set_ylabel('Desvio')
-    axs[3].plot(desvio)
-    axs[3].plot(list_des_esperado)
+    axs[2].set_ylabel('Desvio')
+    axs[2].plot(desvio)
+    axs[2].plot(list_des_esperado)
+    axs[2].set_xlabel('Número de tirada')
+    
+    # Varianza
+    axs[3].set_ylabel('Varianza')
+    axs[3].plot(varianza)
+    axs[3].plot(list_var_esperada)
     axs[3].set_xlabel('Número de tirada')
 
     fig.tight_layout()
