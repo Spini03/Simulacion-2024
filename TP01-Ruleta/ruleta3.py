@@ -82,6 +82,11 @@ def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, valores, num_co
     axs[4].set_ylabel('Frecuencia')
     axs[4].set_xlabel('Número')
 
+    # Frecuecnia Relativa
+    axs[5].hist(valores, bins=range(38), density=True, alpha=0.75)
+    axs[5].set_ylabel('Frecuencia')
+    axs[5].set_xlabel('Número')
+
     fig.tight_layout()
     plt.show()
 
