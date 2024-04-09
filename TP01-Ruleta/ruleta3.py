@@ -134,6 +134,8 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 def main():
     cant_tiradas, cant_corridas, num_elegido = inicializar_valores()
     ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido)
+    
+    # TODO: Agregar las graficas de todas las corridas
 
 if __name__ == '__main__':
     main()
