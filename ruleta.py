@@ -7,7 +7,7 @@ aciertos = 0
 prom_esperado = 18
 valor_fr_esperada = 1 / 37
 valor_var_esperada = 114
-valor_desvio_esperado = 10.67707825
+valor_desvio_esperado = np.sqrt(114)
 todos_los_valores = []
 todas_las_tiradas = []
 valores = [1000]
@@ -114,7 +114,7 @@ for i in range(corridas):
     prom = prom_corrida(valores)
     frecrel = frecrel_corrida(valores)
     var = var_corrida(valores, prom)
-    des = des_corrida(valores)
+    des = des_corrida(var)
     todos_los_valores.append(valores)
     print(valores)
     aciertos_corrida = valores.count(num_elegido)
