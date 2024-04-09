@@ -112,8 +112,7 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
             valores.append(num)
             promedio.append(np.mean(valores))
 
-            if num_elegido == num: 
-                ganadas += 1
+            ganadas += 1 if num_elegido == num else 0
 
             frecrel.append(ganadas / (j + 1))
 
