@@ -42,8 +42,8 @@ def generar_listas_esperadas(cant_tiradas):
     return list_prom_esperado, list_fr_esperada, list_var_esperada, list_des_esperado
 
 
-def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, num_corrida):
-    fig, axs = plt.subplots(nrows=2, ncols=2)
+def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, valores, num_corrida):
+    fig, axs = plt.subplots(nrows=3, ncols=2)
     axs = axs.flatten()
 
     list_prom_esperado, list_frec_esperada, list_var_esperada, list_des_esperado = generar_listas_esperadas(cant_tiradas)
@@ -68,12 +68,25 @@ def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, num_corrida):
     axs[2].plot(desvio)
     axs[2].plot(list_des_esperado)
     axs[2].set_xlabel('Número de tirada')
-    
+
     # Varianza
     axs[3].set_ylabel('Varianza')
     axs[3].plot(varianza)
     axs[3].plot(list_var_esperada)
     axs[3].set_xlabel('Número de tirada')
+
+    # Frecuecnia Relativa
+    axs[4].hist(valores, bins=range(38), density=True, alpha=0.75)
+    axs[4].set_ylabel('Frecuencia')
+    axs[4].set_xlabel('Número')
+
+    # Frecuencia acumulada
+    axs[5].bar(range(37), np.histogram(valores, bins=range(38))[0])
+    axs[5].set_ylabel('Frecuencia')
+    axs[5].set_xlabel('Número')
+
+    # Otras posibles graficas podriasn ser (Histograma de resultados Frec absoluta de cada numero
+    # Frec acumulada, grafico de porbabilidad acumulada, analisis de tendencia a lo largo del timepo)
 
     fig.tight_layout()
     plt.show()
@@ -111,7 +124,7 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 
         aciertos = aciertos + ganadas
 
-        graficar(promedio, frecrel, var, des, cant_tiradas, i + 1)
+        graficar(promedio, frecrel, var, des, cant_tiradas, valores, i + 1)
 
     print("Aciertos totales: ", aciertos)
 
