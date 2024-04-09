@@ -1,9 +1,11 @@
-import random
+# Para la gestion de argumentos de linea de comandos
+import argparse 
 import sys
+
+import random
 import matplotlib.pyplot as plt
 import numpy as np
 import statistics as st
-import argparse #Para la gestion de argumentos de linea de comandos
 
 
 def inicializar_valores():
