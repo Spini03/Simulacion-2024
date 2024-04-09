@@ -77,18 +77,10 @@ def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, valores, num_co
     axs[3].plot(list_var_esperada)
     axs[3].set_xlabel('Número de tirada')
 
-    # Frecuecnia Relativa
-    axs[4].hist(valores, bins=range(38), density=True, alpha=0.75)
+    # Frecuencia Acumulada
+    axs[4].bar(range(37), np.histogram(valores, bins=range(38))[0])
     axs[4].set_ylabel('Frecuencia')
     axs[4].set_xlabel('Número')
-
-    # Frecuencia acumulada
-    axs[5].bar(range(37), np.histogram(valores, bins=range(38))[0])
-    axs[5].set_ylabel('Frecuencia')
-    axs[5].set_xlabel('Número')
-
-    # Otras posibles graficas podriasn ser (Histograma de resultados Frec absoluta de cada numero
-    # Frec acumulada, grafico de porbabilidad acumulada, analisis de tendencia a lo largo del timepo)
 
     fig.tight_layout()
     plt.show()
