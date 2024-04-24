@@ -10,11 +10,6 @@ import statistics as st
 
 def inicializar_valores():
 
-    # Nuevas Variables
-    apuesta_minima = 1
-    apuesta_par = True
-    capital_infinito = True
-
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
     parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
     parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
@@ -32,9 +27,6 @@ def inicializar_valores():
         print("Error: El número de corridas debe ser mayor que cero.")
         sys.exit(1)
 
-    if args.tipo_capital == "f":
-        capital_infinito = False
-        capital = 100000 #TODO: Justificar el minimo ingresado
 
     return args.cant_tiradas, args.corridas, args.num_elegido, args.estrategia, args.tipo_capital
 
@@ -142,19 +134,125 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 
         aciertos = aciertos + ganadas
 
-        graficar(promedio, frecrel, var, des, cant_tiradas, valores, i + 1)
+        # graficar(promedio, frecrel, var, des, cant_tiradas, valores, i + 1)
 
     print(f"\n======== FIN CORRIDAS ========\n")
     print("Aciertos totales: ", aciertos)
 
-def martin_gala():
+def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial):
+    
+    for corrida in range(cant_corridas):
+        print(f"=========== Corrida {corrida + 1} ================")
+        ganaste = corrida_por_pares(apuesta_par)
+        if ganaste:
+            saldo += apuesta_inicial
+            print("ganador!")
+        else:
+            print("perdedor!")
+            saldo -= apuesta_inicial
+        
+        apuesta_anterior = apuesta_inicial
+
+        for tirada in range(cant_tiradas - 1):
+            apuesta_actual = estrategia(ganaste, apuesta_inicial, apuesta_anterior)
+            ganaste = corrida_por_pares(apuesta_par)
+            if ganaste:
+                print("ganador!")
+                saldo += apuesta_actual
+            else:
+                print("perdedor!")
+                if not capital_infinito and (saldo - apuesta_actual) <= 0:
+                    print("No tienes mas saldo para jugar")
+                    break
+                saldo -= apuesta_actual
+            apuesta_anterior = apuesta_actual
+
+        print(f"Saldo final: {saldo}")
+
+
+def corrida_por_pares(apuesta_par):
+    num_ganador = random.randint(0, 36)
+
+    if  num_ganador == 0:
+        return False
+    
+    ganador_par = (num_ganador % 2) == 0
+
+    if apuesta_par and not ganador_par:   
+        return False
+    
+    if ganador_par and not apuesta_par:   
+        return False
+    
+    return True
+
+
+def martin_gala(ganaste, apuesta_inicial, apuesta_anterior):
+    # Al perder se dobla la ultima apuesta, al ganar se vuelve a al monto inicial
+    if ganaste:
+        proxima_apuesta = apuesta_inicial
+    else:
+        proxima_apuesta = apuesta_anterior * 2
+
+    return proxima_apuesta
+
+
+def dalamber(ganaste, apuesta_inicial, apuesta_anterior):
+    # Al perder se aumenta 1 unidad la apuesta, al ganar se disminuye una unidad hasta la inicial
+    if ganaste:
+        proxima_apuesta = apuesta_anterior - 1
+    else:
+        proxima_apuesta = apuesta_anterior + 1
+
+    return proxima_apuesta
+
+
+# TODO: Fibonacci
+
+# def generar_secuencia_fibonacci(n):
+#     fibonacci = [1, 1]
+#     for i in range(2, n):
+#         fibonacci.append(fibonacci[-1] + fibonacci[-2])
+#     return fibonacci
+
+def fibonacci(ganaste, secuencia_fibonacci, indice):
+    ''' 
+    Al perder una apuesta de 1, la siguiente será de 1, luego 2, luego 3, luego 5, y así sucesivamente
+    Al ganar se retrocede 2 pasos la secuencia 
+    '''
+    # if ganaste:
+    #     # Retroceder dos pasos en la secuencia
+    #     nuevo_indice = max(0, indice - 2)
+    # else:
+    #     # Avanzar un paso en la secuencia
+    #     nuevo_indice = indice + 1 if indice < len(secuencia_fibonacci) - 1 else indice
+
+    # proxima_apuesta = secuencia_fibonacci[nuevo_indice]
+    # return proxima_apuesta, nuevo_indice
     pass
 
 
 
 def main():
-    cant_tiradas, cant_corridas, num_elegido, estrategia, capital = inicializar_valores()
-    ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido, estrategia, capital)
+    saldo = 1000 #TODO: Justificar el minimo ingresado
+    apuesta_inicial = 10
+    apuesta_par = True
+    capital_infinito = True
+
+    cant_tiradas, cant_corridas, num_elegido, estrategia_elegida, capital_elegido = inicializar_valores()
+
+    if capital_elegido == "f":
+        capital_infinito = False
+
+    if estrategia_elegida == 'm':
+        estrategia = martin_gala
+    elif estrategia_elegida == 'd':
+        estrategia = dalamber
+    elif estrategia_elegida =='f':
+        estrategia = fibonacci
+
+    # ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido, estrategia, capital)
+    corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial)
 
 if __name__ == '__main__':
     main()
