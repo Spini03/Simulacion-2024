@@ -22,6 +22,9 @@ des = []
 
 def definir_valores():
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
+    parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
+    parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
+    parser.add_argument('-e', '--num_elegido', type=int, required=False, help='Número elegido')
     parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o'], required=True, help='Opciones permitidas: m, d, f, o')
     parser.add_argument('-a', '--tipo_capital', type=str, choices=['i', 'f'], required=True, help='Opciones permitidas: m, d, f, o')
 
@@ -35,10 +38,10 @@ def definir_valores():
         print("Error: El número de corridas debe ser mayor que cero.")
         sys.exit(1)
 
-    return args.cant_tiradas, args.corridas, args.num_elegido
+    return args.cant_tiradas, args.corridas, args.num_elegido, args.estrategia, args.tipo_capital
 
 
-cant_tiradas, corridas, num_elegido = definir_valores()
+cant_tiradas, corridas, num_elegido, estrategia, tipo_capital = definir_valores()
 
 # listas valores esperados
 list_prom_esperado = []
