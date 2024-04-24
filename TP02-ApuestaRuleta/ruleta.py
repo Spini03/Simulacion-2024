@@ -8,11 +8,13 @@ import numpy as np
 import statistics as st
 
 
-# Nuevas Variables
-apuesta_minima = 1
-apuesta_par = True
-
 def inicializar_valores():
+
+    # Nuevas Variables
+    apuesta_minima = 1
+    apuesta_par = True
+    capital_infinito = True
+
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
     parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
     parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
@@ -29,6 +31,10 @@ def inicializar_valores():
     if args.corridas <= 0:
         print("Error: El número de corridas debe ser mayor que cero.")
         sys.exit(1)
+
+    if args.tipo_capital == "f":
+        capital_infinito = False
+        capital = 100000 #TODO: Justificar el minimo ingresado
 
     return args.cant_tiradas, args.corridas, args.num_elegido, args.estrategia, args.tipo_capital
 
@@ -141,10 +147,14 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
     print(f"\n======== FIN CORRIDAS ========\n")
     print("Aciertos totales: ", aciertos)
 
+def martin_gala():
+    pass
+
+
 
 def main():
     cant_tiradas, cant_corridas, num_elegido, estrategia, capital = inicializar_valores()
-    ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido)
+    ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido, estrategia, capital)
 
 if __name__ == '__main__':
     main()
