@@ -22,9 +22,8 @@ des = []
 
 def definir_valores():
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
-    parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
-    parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
-    parser.add_argument('-e', '--num_elegido', type=int, required=True, help='Número elegido')
+    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o'], required=True, help='Opciones permitidas: m, d, f, o')
+    parser.add_argument('-a', '--tipo_capital', type=str, choices=['i', 'f'], required=True, help='Opciones permitidas: m, d, f, o')
 
     args = parser.parse_args()
 
