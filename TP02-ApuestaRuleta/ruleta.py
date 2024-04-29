@@ -140,8 +140,9 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
     print("Aciertos totales: ", aciertos)
 
 
-def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial):
+def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo_inicial, apuesta_inicial):
     for corrida in range(cant_corridas):
+        saldo = saldo_inicial
         print(f"=========== Corrida {corrida + 1} ================")
         ganaste = corrida_por_pares(apuesta_par)
         if ganaste:
@@ -217,7 +218,6 @@ def dalamber(ganaste, apuesta_inicial, apuesta_anterior):
     return proxima_apuesta
 
 
-
 def fibonacci(ganaste, apuesta_inicial, apuesta_anterior):
     ''' 
     Al perder una apuesta de 1, la siguiente será de 1, luego 2, luego 3, luego 5, y así sucesivamente
@@ -226,7 +226,8 @@ def fibonacci(ganaste, apuesta_inicial, apuesta_anterior):
     if ganaste and apuesta_anterior >= apuesta_inicial:
         # Vuelve 2 apuestas hacia atras
         # El número 0.618... aproxima (se puede precisar más) la relación entre un número de fibonacci y el siguiente
-        proxima_apuesta = round(apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
+        proxima_apuesta = round(
+            apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
     elif ganaste:
         # La apuesta es igual a la apuesta inicial
         proxima_apuesta = apuesta_inicial
