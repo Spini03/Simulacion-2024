@@ -157,12 +157,12 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         for tirada in range(cant_tiradas - 1):
             apuesta_actual = estrategia(ganaste, apuesta_inicial, apuesta_anterior)
             ganaste = corrida_por_pares(apuesta_par)
-            if ganaste and saldo > apuesta_actual:
-                print("ganador!")
-                saldo += apuesta_actual
-            elif ganaste:
+            if ganaste and not capital_infinito and saldo <= apuesta_actual:
                 print("ganador!")
                 saldo += saldo
+            elif ganaste:
+                print("ganador!")
+                saldo += apuesta_actual
             else:
                 print("perdedor!")
                 if not capital_infinito and (saldo - apuesta_actual) <= 0:
