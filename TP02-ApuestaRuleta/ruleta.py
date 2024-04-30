@@ -175,12 +175,12 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
             ganadas += 1 if es_ganador else 0
             frecrel.append(ganadas / (tirada + 2))
 
-        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
-
         if sin_saldo:
-            print(f"Saldo final: 0")
+            print(f"Saldo final: {saldo} (Saldo necesario: {apuesta_actual})")
         else:
             print(f"Saldo final: {saldo}")
+
+        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
 
 
 def corrida_por_pares(apuesta_par):
