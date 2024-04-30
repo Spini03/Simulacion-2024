@@ -223,14 +223,14 @@ def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
     Al perder una apuesta de 1, la siguiente será de 1, luego 2, luego 3, luego 5, y así sucesivamente
     Al ganar se retrocede 2 pasos la secuencia 
     '''
-    if es_ganador and apuesta_anterior >= apuesta_inicial:
+    if es_ganador and apuesta_anterior == apuesta_inicial:
+        # La apuesta es igual a la apuesta inicial
+        proxima_apuesta = apuesta_inicial
+    elif es_ganador:
         # Vuelve 2 apuestas hacia atras
         # El número 0.618... aproxima (se puede precisar más) la relación entre un número de fibonacci y el siguiente
         proxima_apuesta = round(
-            apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
-    elif es_ganador:
-        # La apuesta es igual a la apuesta inicial
-        proxima_apuesta = apuesta_inicial
+        apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
     else:
         proxima_apuesta = round(apuesta_anterior / apuesta_inicial / 0.618033988205325051470844819764) * apuesta_inicial
 
