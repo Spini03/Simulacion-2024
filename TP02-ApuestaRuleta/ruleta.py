@@ -208,10 +208,10 @@ def martin_gala(es_ganador, apuesta_inicial, apuesta_anterior):
 
 def dalamber(es_ganador, apuesta_inicial, apuesta_anterior):
     # Al perder se aumenta 1 unidad la apuesta, al ganar se disminuye una unidad hasta la inicial
-    if es_ganador and apuesta_anterior >= apuesta_inicial:
-        proxima_apuesta = apuesta_anterior - apuesta_inicial
-    elif es_ganador:
+    if es_ganador and apuesta_anterior == apuesta_inicial:
         proxima_apuesta = apuesta_inicial
+    elif es_ganador:
+        proxima_apuesta = apuesta_anterior - apuesta_inicial
     else:
         proxima_apuesta = apuesta_anterior + apuesta_inicial
 
