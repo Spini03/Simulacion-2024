@@ -146,11 +146,11 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         print(f"=========== Corrida {corrida + 1} ================")
         es_ganador = corrida_por_pares(apuesta_par)
         if es_ganador:
-            saldo += apuesta_inicial
             print(f"ganador! Saldo: {saldo} + {apuesta_inicial}")
+            saldo += apuesta_inicial
         else:
-            saldo -= apuesta_inicial
             print(f"perdedor! Saldo: {saldo} - {apuesta_inicial}")
+            saldo -= apuesta_inicial
 
         apuesta_anterior = apuesta_inicial
         sin_saldo = False
@@ -165,11 +165,11 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
 
             es_ganador = corrida_por_pares(apuesta_par)
             if es_ganador:
-                saldo += apuesta_actual
                 print(f"ganador! Saldo: {saldo} + {apuesta_actual}")
+                saldo += apuesta_actual
             else:
-                saldo -= apuesta_actual
                 print(f"perdedor! Saldo: {saldo} - {apuesta_actual}")
+                saldo -= apuesta_actual
 
             apuesta_anterior = apuesta_actual
 
@@ -238,7 +238,7 @@ def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
 
 
 def main():
-    saldo = 1000  # TODO: Justificar el minimo ingresado
+    saldo = 100  # TODO: Justificar el minimo ingresado
     apuesta_inicial = 10
     apuesta_par = True
     capital_infinito = True
