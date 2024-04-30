@@ -147,10 +147,10 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         es_ganador = corrida_por_pares(apuesta_par)
         if es_ganador:
             saldo += apuesta_inicial
-            print("ganador!")
+            print(f"ganador! Saldo: {saldo} + {apuesta_inicial}")
         else:
-            print("perdedor!")
             saldo -= apuesta_inicial
+            print(f"perdedor! Saldo: {saldo} - {apuesta_inicial}")
 
         apuesta_anterior = apuesta_inicial
         sin_saldo = False
@@ -165,12 +165,12 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
 
             es_ganador = corrida_por_pares(apuesta_par)
             if es_ganador:
-                print("ganador!")
                 saldo += apuesta_actual
+                print(f"ganador! Saldo: {saldo} + {apuesta_actual}")
             else:
-                print("perdedor!")
                 saldo -= apuesta_actual
-                
+                print(f"perdedor! Saldo: {saldo} - {apuesta_actual}")
+
             apuesta_anterior = apuesta_actual
 
         if sin_saldo:
