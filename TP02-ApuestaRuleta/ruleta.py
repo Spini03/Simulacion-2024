@@ -144,8 +144,8 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
     for corrida in range(cant_corridas):
         saldo = saldo_inicial
         print(f"=========== Corrida {corrida + 1} ================")
-        ganaste = corrida_por_pares(apuesta_par)
-        if ganaste:
+        es_ganador = corrida_por_pares(apuesta_par)
+        if es_ganador:
             saldo += apuesta_inicial
             print("ganador!")
         else:
@@ -156,12 +156,12 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         sin_saldo = False
 
         for tirada in range(cant_tiradas - 1):
-            apuesta_actual = estrategia(ganaste, apuesta_inicial, apuesta_anterior)
-            ganaste = corrida_por_pares(apuesta_par)
-            if ganaste and not capital_infinito and saldo <= apuesta_actual:
+            apuesta_actual = estrategia(es_ganador, apuesta_inicial, apuesta_anterior)
+            es_ganador = corrida_por_pares(apuesta_par)
+            if es_ganador and not capital_infinito and saldo <= apuesta_actual:
                 print("ganador!")
-                saldo += saldo
-            elif ganaste:
+                saldo += saldo 
+            elif es_ganador:
                 print("ganador!")
                 saldo += apuesta_actual
             else:
@@ -196,9 +196,9 @@ def corrida_por_pares(apuesta_par):
     return True
 
 
-def martin_gala(ganaste, apuesta_inicial, apuesta_anterior):
+def martin_gala(es_ganador, apuesta_inicial, apuesta_anterior):
     # Al perder se dobla la ultima apuesta, al ganar se vuelve a al monto inicial
-    if ganaste:
+    if es_ganador:
         proxima_apuesta = apuesta_inicial
     else:
         proxima_apuesta = apuesta_anterior * 2
@@ -206,11 +206,11 @@ def martin_gala(ganaste, apuesta_inicial, apuesta_anterior):
     return proxima_apuesta
 
 
-def dalamber(ganaste, apuesta_inicial, apuesta_anterior):
+def dalamber(es_ganador, apuesta_inicial, apuesta_anterior):
     # Al perder se aumenta 1 unidad la apuesta, al ganar se disminuye una unidad hasta la inicial
-    if ganaste and apuesta_anterior >= apuesta_inicial:
+    if es_ganador and apuesta_anterior >= apuesta_inicial:
         proxima_apuesta = apuesta_anterior - apuesta_inicial
-    elif ganaste:
+    elif es_ganador:
         proxima_apuesta = apuesta_inicial
     else:
         proxima_apuesta = apuesta_anterior + apuesta_inicial
@@ -218,17 +218,17 @@ def dalamber(ganaste, apuesta_inicial, apuesta_anterior):
     return proxima_apuesta
 
 
-def fibonacci(ganaste, apuesta_inicial, apuesta_anterior):
+def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
     ''' 
     Al perder una apuesta de 1, la siguiente será de 1, luego 2, luego 3, luego 5, y así sucesivamente
     Al ganar se retrocede 2 pasos la secuencia 
     '''
-    if ganaste and apuesta_anterior >= apuesta_inicial:
+    if es_ganador and apuesta_anterior >= apuesta_inicial:
         # Vuelve 2 apuestas hacia atras
         # El número 0.618... aproxima (se puede precisar más) la relación entre un número de fibonacci y el siguiente
         proxima_apuesta = round(
             apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
-    elif ganaste:
+    elif es_ganador:
         # La apuesta es igual a la apuesta inicial
         proxima_apuesta = apuesta_inicial
     else:
