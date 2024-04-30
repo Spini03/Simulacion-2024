@@ -47,55 +47,42 @@ def generar_listas_esperadas(cant_tiradas):
     return list_prom_esperado, list_fr_esperada, list_var_esperada, list_des_esperado
 
 
-def graficar(promedio, frec_rel, varianza, desvio, cant_tiradas, valores, num_corrida):
-    fig, axs = plt.subplots(nrows=3, ncols=2)
+def graficar(frec_rel, cant_tiradas, saldos_por_tirada, num_corrida, saldo_inicial, nombre_estrategia):
+    fig, axs = plt.subplots(nrows=1, ncols=2)
     axs = axs.flatten()
 
-    list_prom_esperado, list_frec_esperada, list_var_esperada, list_des_esperado = generar_listas_esperadas(
-        cant_tiradas)
+    # list_prom_esperado, list_frec_esperada, list_var_esperada, list_des_esperado = generar_listas_esperadas(
+    #     cant_tiradas)
 
-    titulo = 'Datos corrida ' + str(num_corrida)
+    titulo = f'Datos corrida {str(num_corrida)} [{nombre_estrategia}]'
     fig.suptitle(titulo)
 
-    # Frec Relativa
-    axs[0].set_title('Frecuencia Relativa del numero 14')
-    axs[0].set_ylabel('Frecuencia relativa')
-    axs[0].plot(frec_rel)
-    axs[0].plot(list_frec_esperada)
+    # Gráfico del flujo de caja (saldo a lo largo del tiempo)
+    axs[0].set_title('Flujo de Caja')
+    axs[0].set_ylabel('Saldo')
+    axs[0].plot(saldos_por_tirada, label='Saldo por Tirada')
+    axs[0].axhline(y=saldo_inicial, color='r', linestyle='--', label='Saldo Inicial')
     axs[0].set_xlabel('Número de tirada')
+    axs[0].legend()
 
-    # Promedio
-    axs[1].set_title('Promedio')
-    axs[1].set_ylabel('Promedio')
-    axs[1].plot(promedio)
-    axs[1].plot(list_prom_esperado)
-    axs[1].set_xlabel('Número de tirada')
+    # # Frec Relativa
+    # axs[0].set_title('Frecuencia Relativa del numero 14')
+    # axs[0].set_ylabel('Frecuencia relativa')
+    # axs[0].plot(frec_rel)
+    # axs[0].plot(list_frec_esperada)
+    # axs[0].set_xlabel('Número de tirada')
 
-    # Desvio
-    axs[2].set_title('Desvíos')
-    axs[2].set_ylabel('Desvio')
-    axs[2].plot(desvio)
-    axs[2].plot(list_des_esperado)
-    axs[2].set_xlabel('Número de tirada')
+    # # Frecuencia Acumulada
+    # axs[4].set_title('Frecuencia Acumulada')
+    # axs[4].bar(range(37), np.histogram(valores, bins=range(38))[0])
+    # axs[4].set_ylabel('Frecuencia')
+    # axs[4].set_xlabel('Número')
 
-    # Varianza
-    axs[3].set_title('Varianza')
-    axs[3].set_ylabel('Varianza')
-    axs[3].plot(varianza)
-    axs[3].plot(list_var_esperada)
-    axs[3].set_xlabel('Número de tirada')
-
-    # Frecuencia Acumulada
-    axs[4].set_title('Frecuencia Acumulada')
-    axs[4].bar(range(37), np.histogram(valores, bins=range(38))[0])
-    axs[4].set_ylabel('Frecuencia')
-    axs[4].set_xlabel('Número')
-
-    # Frecuecnia Relativa
-    axs[5].set_title('Frecuencia Relativa')
-    axs[5].hist(valores, bins=range(38), density=True, alpha=0.75)
-    axs[5].set_ylabel('Frecuencia')
-    axs[5].set_xlabel('Número')
+    # # Frecuecnia Relativa
+    # axs[5].set_title('Frecuencia Relativa')
+    # axs[5].hist(valores, bins=range(38), density=True, alpha=0.75)
+    # axs[5].set_ylabel('Frecuencia')
+    # axs[5].set_xlabel('Número')
 
     fig.tight_layout()
     plt.show()
@@ -143,6 +130,13 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
 def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo_inicial, apuesta_inicial):
     for corrida in range(cant_corridas):
         saldo = saldo_inicial
+
+        # Variables para graficar
+        ganadas = 0
+        saldos_por_tirada = []
+        frecrel = []
+        # Posibles graficas: apuestas_por_tirada, resultado_por_tirada, corridas_sin_saldo
+        
         print(f"=========== Corrida {corrida + 1} ================")
         es_ganador = corrida_por_pares(apuesta_par)
         if es_ganador:
@@ -154,6 +148,10 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
 
         apuesta_anterior = apuesta_inicial
         sin_saldo = False
+
+        saldos_por_tirada.append(saldo)
+        ganadas += 1 if es_ganador else 0
+        frecrel.append(ganadas / 1)
 
         for tirada in range(cant_tiradas - 1):
 
@@ -172,6 +170,12 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
                 saldo -= apuesta_actual
 
             apuesta_anterior = apuesta_actual
+
+            saldos_por_tirada.append(saldo)
+            ganadas += 1 if es_ganador else 0
+            frecrel.append(ganadas / (tirada + 2))
+
+        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial)
 
         if sin_saldo:
             print(f"Saldo final: 0")
