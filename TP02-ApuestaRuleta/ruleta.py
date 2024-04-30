@@ -175,7 +175,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
             ganadas += 1 if es_ganador else 0
             frecrel.append(ganadas / (tirada + 2))
 
-        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial)
+        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
 
         if sin_saldo:
             print(f"Saldo final: 0")
@@ -254,10 +254,13 @@ def main():
 
     if estrategia_elegida == 'm':
         estrategia = martin_gala
+        estrategia.nombre = 'Martin Gala'
     elif estrategia_elegida == 'd':
         estrategia = dalamber
+        estrategia.nombre = "D'Alembert"
     elif estrategia_elegida == 'f':
         estrategia = fibonacci
+        estrategia.nombre = "Fibonacci"
 
     # ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido, estrategia, capital)
     corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial)
