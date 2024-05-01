@@ -190,7 +190,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         else:
             print(f"Saldo final: {saldo}")
 
-        graficar(frecrel, cant_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
+        graficar(frecrel, tirada + 1, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
 
 
 def corrida_por_pares(apuesta_par):
