@@ -145,6 +145,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         ganadas = 0
         saldos_por_tirada = []
         frecrel = []
+        cant_actual_tiradas = 1
         # Posibles graficas: apuestas_por_tirada, resultado_por_tirada, corridas_sin_saldo
         
         print(f"=========== Corrida {corrida + 1} ================")
@@ -170,6 +171,8 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
                 print("No tienes mas saldo para jugar")
                 sin_saldo = True
                 break
+            
+            cant_actual_tiradas += 1
 
             es_ganador = corrida_por_pares(apuesta_par)
             if es_ganador:
@@ -190,7 +193,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         else:
             print(f"Saldo final: {saldo}")
 
-        graficar(frecrel, tirada + 1, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
+        graficar(frecrel, cant_actual_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
 
 
 def corrida_por_pares(apuesta_par):
