@@ -143,7 +143,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
 
         # Variables para graficar
         ganadas = 0
-        saldos_por_tirada = []
+        saldos_por_tirada = [saldo_inicial]
         frecrel = []
         cant_actual_tiradas = 1
         # Posibles graficas: apuestas_por_tirada, resultado_por_tirada, corridas_sin_saldo
