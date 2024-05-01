@@ -48,7 +48,7 @@ def generar_listas_esperadas(cant_tiradas):
 
 
 def graficar(frec_rel, cant_tiradas, saldos_por_tirada, num_corrida, saldo_inicial, nombre_estrategia):
-    fig, axs = plt.subplots(nrows=1, ncols=2)
+    fig, axs = plt.subplots(1,2, figsize=(12,5), gridspec_kw={'width_ratios': [2, 3]})
     axs = axs.flatten()
 
     # list_prom_esperado, list_frec_esperada, list_var_esperada, list_des_esperado = generar_listas_esperadas(
@@ -66,11 +66,21 @@ def graficar(frec_rel, cant_tiradas, saldos_por_tirada, num_corrida, saldo_inici
     axs[0].legend()
 
     # # Frec Relativa
-    # axs[0].set_title('Frecuencia Relativa del numero 14')
-    # axs[0].set_ylabel('Frecuencia relativa')
-    # axs[0].plot(frec_rel)
-    # axs[0].plot(list_frec_esperada)
-    # axs[0].set_xlabel('Número de tirada')
+    axs[1].set_title('Frecuencia Relativa')
+    axs[1].set_ylabel('Frecuencia relativa')
+    #axs[1].hist(frec_rel, bins=len(frec_rel), width=0.8, label='Frecuencia relativa de obtener la respuesta favorable según n')
+    axs[1].hist(range(1, cant_tiradas + 1), bins=cant_tiradas, weights=frec_rel, align='left', rwidth=0.8, label='Frecuencia relativa de obtener la respuesta favorable según n')
+    axs[1].set_xlabel('Número de tirada')
+    axs[1].legend()
+   
+
+    plt.tight_layout()
+
+    # hist_max = max(axs[1].get_ylim()[1], max(frec_rel) * 1.5)
+    # hist_max = max(frec_rel) * 1.05
+    # axs[1].set_ylim(0, hist_max)
+
+    plt.show() 
 
     # # Frecuencia Acumulada
     # axs[4].set_title('Frecuencia Acumulada')
