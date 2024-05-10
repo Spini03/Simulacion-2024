@@ -28,6 +28,7 @@ def inicializar_valores():
     return args.cant_tiradas, args.corridas, args.num_elegido, args.estrategia, args.tipo_capital
 
 
+#Esta función no se usa
 def generar_listas_esperadas(cant_tiradas):
     ruleta = np.arange(37)
 
@@ -60,7 +61,7 @@ def graficar(frec_rel, cant_tiradas, saldos_por_tirada, num_corrida, saldo_inici
     # Gráfico de frecuencia relativa de obtener la respuesta favorable según n
     axs[1].set_title('Frecuencia Relativa')
     axs[1].set_ylabel('Frecuencia relativa')
-    axs[1].hist(range(1, cant_tiradas + 1), bins=cant_tiradas, weights=frec_rel, align='left', rwidth=0.8, label='Frecuencia relativa de obtener la respuesta favorable según n')
+    axs[1].hist(range(1, cant_tiradas + 1), bins=cant_tiradas, weights=frec_rel, align='left', rwidth=0.8, label='Frecuencia relativa de respuesta favorable según el n° de tiradas')
     axs[1].set_xlabel('Número de tirada')
     axs[1].legend()
     
@@ -80,6 +81,7 @@ def graficar(frec_rel, cant_tiradas, saldos_por_tirada, num_corrida, saldo_inici
     plt.show()
 
 
+#Esta función no se usa
 def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
     for i in range(cant_corridas):
         print(f"\n======== CORRIDA {i + 1} ========")
@@ -115,6 +117,47 @@ def ejecutar_corridas(cant_tiradas, cant_corridas, num_elegido):
     print("Aciertos totales: ", aciertos)
 
 
+"""
+def graficar_corridas(frec_rel, cant_corridas, saldos_por_corrida, saldo_inicial, nombre_estrategia):
+    fig, axs = plt.subplots(1, 3, figsize=(18, 6))
+    fig.suptitle(f'Todas las corridas [{nombre_estrategia}]')
+
+    # Flujo de cajas
+    axs[0].set_title('Flujo de Cajas')
+    axs[0].set_ylabel('Saldo')
+    axs[0].plot(saldos_por_corrida, label='Saldo por Tirada')
+    axs[0].scatter(range(len(saldos_por_corrida)), saldos_por_corrida, c='r', marker='o', label='Flujo de Cajas')
+    axs[0].axhline(y=saldo_inicial, color='r', linestyle='--', label='Saldo Inicial')
+    axs[0].set_xlabel('Número de corrida')
+    axs[0].legend()
+
+    # Gráfico de frecuencia relativa de obtener la respuesta favorable según n
+    axs[1].set_title('Frecuencia Relativa')
+    axs[1].set_ylabel('Frecuencia relativa')
+    axs[1].hist(range(1, cant_corridas), bins=cant_corridas, weights=frec_rel, align='left', rwidth=0.8, label='Frecuencia relativa de obtener la respuesta favorable según el número de corridas')
+    axs[1].set_xlabel('Número de tirada')
+    axs[1].legend()
+    
+    # Histograma de picos y valles entre cada tirada
+    axs[2].set_title('Histograma Picos y Valles')
+    axs[2].set_xlabel('Cambio en el Saldo')
+    axs[2].set_ylabel('Frecuencia')
+    cambios_en_saldo = np.diff(saldos_por_corrida)
+    axs[2].hist(cambios_en_saldo, bins=20, alpha=0.7, color='b', edgecolor='black', linewidth=1.2)
+    axs[2].axvline(x=0, color='r', linestyle='--', label='Cambio Neutral')
+    axs[2].legend()
+
+
+
+
+    plt.tight_layout()
+    plt.show()
+"""
+
+
+
+
+
 def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo_inicial, apuesta_inicial):
     for corrida in range(cant_corridas):
         saldo = saldo_inicial
@@ -122,6 +165,7 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
         # Variables para graficar
         ganadas = 0
         saldos_por_tirada = [saldo_inicial]
+        saldos_por_corrida = []
         frecrel = []
         cant_actual_tiradas = 1
 
@@ -169,8 +213,15 @@ def corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_
             print(f"Saldo final: {saldo} (Saldo necesario: {apuesta_actual})")
         else:
             print(f"Saldo final: {saldo}")
+        
+        
 
         graficar(frecrel, cant_actual_tiradas, saldos_por_tirada, corrida + 1, saldo_inicial, estrategia.nombre)
+
+        saldos_por_corrida.append(saldo)
+    
+    #graficar_corridas(frecrel, cant_corridas, saldos_por_corrida, saldo_inicial, estrategia.nombre)
+
 
 
 def corrida_por_pares(apuesta_par):
@@ -225,7 +276,8 @@ def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
 
 
 def main():
-    saldo = 100  # TODO: Justificar el minimo ingresado
+    saldo = 100000  # TODO: Justificar el minimo ingresado
+    #Suponiendo que son 100000 pesos argentinos. Como son 10000 tiradas me pareció que tiene sentido.
     apuesta_inicial = 10
     apuesta_par = True
     capital_infinito = True
