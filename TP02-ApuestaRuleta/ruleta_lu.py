@@ -9,7 +9,7 @@ def inicializar_valores():
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
     parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
     parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
-    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o'], required=True,
+    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o','ds'], required=True,
                         help='Opciones permitidas: m, d, f, o')
     parser.add_argument('-a', '--tipo_capital', type=str, choices=['i', 'f'], required=True,
                         help='Opciones permitidas: i, f')
@@ -274,6 +274,16 @@ def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
 
     return proxima_apuesta
 
+def despini(es_ganador, apuesta_inicial, apuesta_anterior):
+    # Al perder se aumenta en 50% la apuesta, al ganar se disminuye el 20% de la apuesta.
+    if es_ganador and apuesta_anterior == apuesta_inicial:
+        proxima_apuesta = apuesta_inicial
+    elif es_ganador:
+        proxima_apuesta = apuesta_anterior - apuesta_anterior*(0.20)
+    else:
+        proxima_apuesta = apuesta_anterior + apuesta_anterior *(0.50)
+    return proxima_apuesta
+
 
 def main():
     saldo = 100000  # TODO: Justificar el minimo ingresado
@@ -296,6 +306,9 @@ def main():
     elif estrategia_elegida == 'f':
         estrategia = fibonacci
         estrategia.nombre = "Fibonacci"
+    elif estrategia_elegida == 'ds':
+        estrategia = despini
+        estrategia.nombre = "D'Spini"
 
     corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial)
 
