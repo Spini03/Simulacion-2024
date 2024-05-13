@@ -279,9 +279,9 @@ def despini(es_ganador, apuesta_inicial, apuesta_anterior):
     if es_ganador and apuesta_anterior == apuesta_inicial:
         proxima_apuesta = apuesta_inicial
     elif es_ganador:
-        proxima_apuesta = apuesta_anterior - apuesta_anterior*(0.20)
+        proxima_apuesta = round(apuesta_anterior - apuesta_anterior*(0.20))
     else:
-        proxima_apuesta = apuesta_anterior + apuesta_anterior *(0.50)
+        proxima_apuesta = round(apuesta_anterior + apuesta_anterior *(0.50))
     return proxima_apuesta
 
 
