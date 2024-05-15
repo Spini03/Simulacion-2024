@@ -9,7 +9,7 @@ def inicializar_valores():
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
     parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
     parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
-    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o','ds'], required=True,
+    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o','ds', 'ne'], required=True,
                         help='Opciones permitidas: m, d, f, o')
     parser.add_argument('-a', '--tipo_capital', type=str, choices=['i', 'f'], required=True,
                         help='Opciones permitidas: i, f')
@@ -284,6 +284,26 @@ def despini(es_ganador, apuesta_inicial, apuesta_anterior):
         proxima_apuesta = round(apuesta_anterior + apuesta_anterior *(0.50))
     return proxima_apuesta
 
+def nueva_estrategia(es_ganador, apuesta_inicial, apuesta_anterior):
+    proxima_apuesta = apuesta_anterior  # Inicialmente, la próxima apuesta es la misma que la anterior
+    ganancia_acumulada = 0
+
+    # Inicialmente se apuesta el 10% del saldo inicial
+    if es_ganador:
+        proxima_apuesta = apuesta_inicial * 0.1
+    else:
+        proxima_apuesta = apuesta_inicial * 0.5
+
+    # Si se ha ganado más del 50% del saldo inicial, se retira y reinicia la estrategia
+    if ganancia_acumulada >= apuesta_inicial * 0.5:
+        ganancia_acumulada -= apuesta_inicial * 0.5
+        saldo += ganancia_acumulada
+        ganancia_acumulada = 0
+        proxima_apuesta = apuesta_inicial
+
+    return proxima_apuesta
+
+
 
 def main():
     saldo = 100000  # TODO: Justificar el minimo ingresado
@@ -309,6 +329,9 @@ def main():
     elif estrategia_elegida == 'ds':
         estrategia = despini
         estrategia.nombre = "D'Spini"
+    elif estrategia_elegida == 'ne':
+        estrategia = nueva_estrategia
+        estrategia.nombre = "Nueva Estrategia"
 
     corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial)
 
