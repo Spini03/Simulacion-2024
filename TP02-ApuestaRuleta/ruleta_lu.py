@@ -9,7 +9,7 @@ def inicializar_valores():
     parser = argparse.ArgumentParser(description='Script para procesar argumentos de línea de comandos')
     parser.add_argument('-c', '--cant_tiradas', type=int, required=True, help='Cantidad de tiradas')
     parser.add_argument('-n', '--corridas', type=int, required=True, help='Número de corridas')
-    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o','ds', 'ne'], required=True,
+    parser.add_argument('-s', '--estrategia', type=str, choices=['m', 'd', 'f', 'o','ds', 'cons'], required=True,
                         help='Opciones permitidas: m, d, f, o')
     parser.add_argument('-a', '--tipo_capital', type=str, choices=['i', 'f'], required=True,
                         help='Opciones permitidas: i, f')
@@ -284,7 +284,7 @@ def despini(es_ganador, apuesta_inicial, apuesta_anterior):
         proxima_apuesta = round(apuesta_anterior + apuesta_anterior *(0.50))
     return proxima_apuesta
 
-def nueva_estrategia(es_ganador, apuesta_inicial, apuesta_anterior):
+def conservadora(es_ganador, apuesta_inicial, apuesta_anterior):
     proxima_apuesta = apuesta_anterior  # Inicialmente, la próxima apuesta es la misma que la anterior
     ganancia_acumulada = 0
 
@@ -331,9 +331,9 @@ def main():
     elif estrategia_elegida == 'ds':
         estrategia = despini
         estrategia.nombre = "D'Spini"
-    elif estrategia_elegida == 'ne':
-        estrategia = nueva_estrategia
-        estrategia.nombre = "Nueva Estrategia"
+    elif estrategia_elegida == 'cons':
+        estrategia = conservadora
+        estrategia.nombre = "Conservadora"
 
     corridas(cant_tiradas, cant_corridas, estrategia, capital_infinito, apuesta_par, saldo, apuesta_inicial)
 
