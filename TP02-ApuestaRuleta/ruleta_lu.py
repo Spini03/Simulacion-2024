@@ -287,7 +287,7 @@ def despini(es_ganador, apuesta_inicial, apuesta_anterior):
 def nueva_estrategia(es_ganador, apuesta_inicial, apuesta_anterior):
     proxima_apuesta = apuesta_anterior  # Inicialmente, la próxima apuesta es la misma que la anterior
     ganancia_acumulada = 0
-
+    
     # Inicialmente se apuesta el 10% del saldo inicial
     if es_ganador:
         proxima_apuesta = apuesta_inicial * 0.1
@@ -302,6 +302,7 @@ def nueva_estrategia(es_ganador, apuesta_inicial, apuesta_anterior):
         proxima_apuesta = apuesta_inicial
 
     return proxima_apuesta
+
 
 
 
