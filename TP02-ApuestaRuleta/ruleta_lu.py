@@ -308,7 +308,7 @@ def nueva_estrategia(es_ganador, apuesta_inicial, apuesta_anterior):
 
 
 def main():
-    saldo = 10000  # TODO: Justificar el minimo ingresado
+    saldo = 100000  # TODO: Justificar el minimo ingresado
     #Suponiendo que son 100000 pesos argentinos. Como son 10000 tiradas me pareció que tiene sentido.
     apuesta_inicial = 10
     apuesta_par = True
