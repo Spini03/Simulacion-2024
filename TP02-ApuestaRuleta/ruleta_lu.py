@@ -264,13 +264,14 @@ def dalamber(es_ganador, apuesta_inicial, apuesta_anterior):
 
 
 def fibonacci(es_ganador, apuesta_inicial, apuesta_anterior):
+    golden = (1+5**0.5) / 2
     if es_ganador and apuesta_anterior == apuesta_inicial:
         proxima_apuesta = apuesta_inicial
     elif es_ganador:
         proxima_apuesta = round(
-        apuesta_anterior / apuesta_inicial * 0.618033988205325051470844819764 ** 2) * apuesta_inicial
+        apuesta_anterior / apuesta_inicial / golden ** 2) * apuesta_inicial
     else:
-        proxima_apuesta = round(apuesta_anterior / apuesta_inicial / 0.618033988205325051470844819764) * apuesta_inicial
+        proxima_apuesta = round(apuesta_anterior / apuesta_inicial * golden) * apuesta_inicial
 
     return proxima_apuesta
 
