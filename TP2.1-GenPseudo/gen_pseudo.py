@@ -1,3 +1,5 @@
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 class GCL:
@@ -15,20 +17,10 @@ class GCL:
     def get_random_number(self):
         # Normaliza el número entre 0 y 1
         return self.next() / self.m
-
-# Parámetros para el GCL
-seed = 42       # Semilla inicial
-a = 1664525     # Multiplicador
-c = 1013904223  # Incremento
-m = 2**32       # Módulo (normalmente una potencia de 2)
-
-# Crear una instancia del GCL
-gcl = GCL(seed, a, c, m)
-
-# Generar 1 número pseudoaleatorio
-numero = gcl.get_random_number()
-print(f"[GCL] Número pseudoaleatorio entre 0 y 1: {numero}")
-
+    
+    def name(self):
+        return "GCL"
+    
 
 class ERNIE:
     def __init__(self, seed):
@@ -43,13 +35,9 @@ class ERNIE:
 
     def get_random_number(self):
         return self.next() / (2**31)
-
-# Uso del generador ERNIE ficticio
-ernie = ERNIE(seed=42)
-
-# Generar un número pseudoaleatorio entre 0 y 1
-numero = ernie.get_random_number()
-print(f"[ERNIE] Número pseudoaleatorio entre 0 y 1: {numero}")
+    
+    def name(self):
+        return "ERNIE"
 
 
 class ItaRNG:
@@ -65,12 +53,38 @@ class ItaRNG:
 
     def get_random_number(self):
         return self.next() / (2**64)
-
-# Uso del generador Ita ficticio
-ita_rng = ItaRNG(seed=42)
-
-# Generar un número pseudoaleatorio entre 0 y 1
-numero = ita_rng.get_random_number()
-print(f"[ITA_RNG] Número pseudoaleatorio entre 0 y 1: {numero}")
+    
+    def name(self):
+        return "Ita RNG"
 
 
+def generar_imagen_ruido(generador, tamaño=(256, 256)):
+    ruido = np.zeros(tamaño)
+    
+    for i in range(tamaño[0]):
+        for j in range(tamaño[1]):
+            ruido[i, j] = generador.get_random_number()
+    
+    plt.imshow(ruido, cmap='gray', interpolation='nearest')
+    plt.title(f'Ruido con {generador.name()}')
+    plt.axis('off')
+    plt.show()
+
+
+# Parametros para los generadores
+seed = 42       # Semilla inicial
+
+# Parámetros para el GCL
+a = 1664525     # Multiplicador
+c = 1013904223  # Incremento
+m = 2**32       # Módulo (normalmente una potencia de 2)
+
+# Instancias de los generadores
+gcl = GCL(seed, a, c, m)
+ernie = ERNIE(seed)
+ita_rng = ItaRNG(seed)
+
+# Generar imágenes de ruido con cada generador
+generar_imagen_ruido(gcl)
+generar_imagen_ruido(ernie)
+generar_imagen_ruido(ita_rng)
