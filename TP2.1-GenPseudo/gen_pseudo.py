@@ -1,6 +1,3 @@
-import numpy as np
-import matplotlib.pyplot as plt
-
 
 class GCL:
     def __init__(self, seed, a, c, m):
@@ -57,20 +54,6 @@ class ItaRNG:
     def name(self):
         return "Ita RNG"
 
-
-def generar_imagen_ruido(generador, tamaño=(256, 256)):
-    ruido = np.zeros(tamaño)
-    
-    for i in range(tamaño[0]):
-        for j in range(tamaño[1]):
-            ruido[i, j] = generador.get_random_number()
-    
-    plt.imshow(ruido, cmap='gray', interpolation='nearest')
-    plt.title(f'Ruido con {generador.name()}')
-    plt.axis('off')
-    plt.show()
-
-
 # Parametros para los generadores
 seed = 42       # Semilla inicial
 
@@ -84,7 +67,4 @@ gcl = GCL(seed, a, c, m)
 ernie = ERNIE(seed)
 ita_rng = ItaRNG(seed)
 
-# Generar imágenes de ruido con cada generador
-generar_imagen_ruido(gcl)
-generar_imagen_ruido(ernie)
-generar_imagen_ruido(ita_rng)
+generadores = [gcl, ernie, ita_rng]
