@@ -21,6 +21,20 @@ class GCL: # De 1998
     def name(self):
         return "GCL"
     
+""" NO LO UTILIZAMOS
+class MersenneTwister: # De 1949?
+    def __init__(self, seed=None):
+        self.generator = random.Random(seed)
+
+    def next(self):
+        return self.generator.getrandbits(32)
+
+    def get_random_number(self):
+        return self.generator.random()
+
+    def name(self):
+        return "Mersenne Twister"
+"""
 
 class ERNIE:
     def __init__(self, seed):
@@ -122,5 +136,7 @@ S0, S1, S2 = 1, 2, 3  # Semillas iniciales para ItaRNG
 N = 1000  # Máximo valor deseado en el rango
 
 ita_rng = ItaRNG(S0, S1, S2, N)
+
+# marsenne_twister = MersenneTwister() NO LO UTILIZAMOS
 
 generadores = [gcl, ernie, ita_rng, pcg]
