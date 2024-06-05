@@ -2,20 +2,24 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import gamma
 
-def generar_gamma(k, theta, size=1000):
-    return np.random.gamma(k, theta, size)
+def transform_uniform_to_gamma(uniform_samples, k, theta):
+    # Aplicamos la función inversa de la CDF de la distribución gamma
+    return gamma.ppf(uniform_samples, a=k, scale=theta)
 
-# Parámetros de la distribución gamma
+# Parámetros de la distribución gamma deseada
 k = 2.0
 theta = 2.0
 
-# Generar números pseudoaleatorios
-valores_gamma = generar_gamma(k, theta, 1000)
+# Generamos una muestra de números aleatorios uniformemente distribuidos
+uniform_samples = np.random.rand(1000)
 
-# Graficar los resultados
-plt.hist(valores_gamma, bins=30, density=True, alpha=0.6, color='g')
+# Transformamos la muestra uniforme en una muestra gamma
+gamma_samples = transform_uniform_to_gamma(uniform_samples, k, theta)
 
-# Graficar la función teórica
+# Graficamos los resultados
+plt.hist(gamma_samples, bins=30, density=True, alpha=0.6, color='g')
+
+# Graficamos la función teórica
 xmin, xmax = plt.xlim()
 x = np.linspace(xmin, xmax, 100)
 p = gamma.pdf(x, a=k, scale=theta)

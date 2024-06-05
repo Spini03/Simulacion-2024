@@ -9,7 +9,7 @@ a = 0
 b = 10
 
 # Generar números pseudoaleatorios
-valores_uniforme = generar_uniforme(a, b, 1000)
+valores_uniforme = generar_uniforme(a, b, 1000000)
 
 # Graficar los resultados
 plt.hist(valores_uniforme, bins=30, density=True, alpha=0.6, color='g')

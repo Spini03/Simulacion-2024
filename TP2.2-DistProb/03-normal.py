@@ -1,31 +1,35 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def generar_normal(mu, sigma, size=1000):
-    # Generar números uniformes entre 0 y 1
-    u = np.random.uniform(0, 1, size)
-    
-    # Aplicar la transformación inversa de la CDF normal
-    z = np.sqrt(-2 * np.log(u)) * np.cos(2 * np.pi * u)
-    
-    # Transformar a la distribución normal deseada
-    return mu + sigma * z
-
 # Parámetros de la distribución normal
-mu = 0
-sigma = 1
+mu = 0  # Media
+sigma = 1  # Desviación estándar
 
-# Generar números pseudoaleatorios
-valores = generar_normal(mu, sigma, 1000)
+# Generación de números pseudoaleatorios uniformemente distribuidos entre 0 y 1
+num_samples = 10000
+u1 = np.random.uniform(0, 1, num_samples)
+u2 = np.random.uniform(0, 1, num_samples)
 
-# Graficar los resultados
-plt.hist(valores, bins=30, density=True, alpha=0.6, color='g')
+# Aplicar el método de Box-Muller para obtener números con distribución normal
+z0 = np.sqrt(-2 * np.log(u1)) * np.cos(2 * np.pi * u2)
+z1 = np.sqrt(-2 * np.log(u1)) * np.sin(2 * np.pi * u2)
 
-# Graficar la función teórica
-xmin, xmax = plt.xlim()
-x = np.linspace(xmin, xmax, 100)
-p = np.exp(-((x - mu) ** 2) / (2 * sigma ** 2)) / (np.sqrt(2 * np.pi) * sigma)
-plt.plot(x, p, 'k', linewidth=2)
-title = "Histograma de datos generados y la función teórica de la Normal"
-plt.title(title)
+# Adaptar los números generados a la distribución normal con media mu y desviación estándar sigma
+normal_random_numbers = mu + sigma * z0
+
+# Graficar el histograma de los números generados
+plt.hist(normal_random_numbers, bins=30, density=True, alpha=0.6, color='g', label='Datos simulados')
+
+# Graficar la función de densidad teórica
+x = np.linspace(np.min(normal_random_numbers), np.max(normal_random_numbers), 10000)
+y = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma) ** 2)
+plt.plot(x, y, 'r-', lw=2, label='Función teórica')
+
+# Configuración de la gráfica
+plt.xlabel('Valor')
+plt.ylabel('Densidad de probabilidad')
+plt.title('Distribución Normal')
+plt.legend()
+
+# Mostrar la gráfica
 plt.show()
