@@ -15,26 +15,11 @@ class GCL: # De 1998
         return self.current
 
     def get_random_number(self):
-        # Normaliza el número entre 0 y 1
-        return self.next() / self.m
+        return self.next() / self.m # Normaliza el número entre 0 y 1
     
     def name(self):
         return "GCL"
     
-""" NO LO UTILIZAMOS
-class MersenneTwister: # De 1949?
-    def __init__(self, seed=None):
-        self.generator = random.Random(seed)
-
-    def next(self):
-        return self.generator.getrandbits(32)
-
-    def get_random_number(self):
-        return self.generator.random()
-
-    def name(self):
-        return "Mersenne Twister"
-"""
 
 class ERNIE:
     def __init__(self, seed):
@@ -42,8 +27,7 @@ class ERNIE:
         random.seed(seed)
 
     def next(self):
-        # Utiliza random.randint para simular la generación de un número aleatorio
-        return random.randint(0, 2**31 - 1)
+        return random.randint(0, 2**31 - 1) # random.randint genera número aleatorio
 
     def get_random_number(self):
         return self.next() / (2**31 - 1)
@@ -78,28 +62,6 @@ class ItaRNG: # De 2021
     def name(self):
         return "Ita RNG"
 
-"""
-class PCG: # Permuted Congruential Generator (Sin usar numpy)
-    def __init__(self, seed, state=0):
-        self.state = state
-        self.inc = (seed << 1) | 1  # Incremento debe ser impar
-
-    def next(self):
-        # Estado del generador PCG
-        oldstate = self.state
-        self.state = oldstate * 6364136223846793005 + self.inc
-
-        # Permutación de bits (permute) en el PCG
-        xorshifted = ((oldstate >> 18) ^ oldstate) >> 27
-        rot = oldstate >> 59
-        return (xorshifted >> rot) | (xorshifted << ((-rot) & 31)) & ((1 << 32) - 1)  # Limitando a 32 bits
-
-    def get_random_number(self):
-        return self.next() / (2**32)
-
-    def name(self):
-        return "PCG"
-"""
     
 class PCG64Wrapper: # Permuted Congruential Generator (Usando numpy) - De 2014
     def __init__(self, seed=None):
@@ -117,26 +79,26 @@ class PCG64Wrapper: # Permuted Congruential Generator (Usando numpy) - De 2014
     def name(self):
         return "PCG64"
 
-# Parametros para los generadores
-seed = 42       # Semilla inicial
+
+## Parametros para los generadores
+seed = 42 
 
 # Parámetros para el GCL
-a = 1664525     # Multiplicador
-c = 1013904223  # Incremento
-m = 2**32       # Módulo (normalmente una potencia de 2)
-
-# Instancias de los generadores
-gcl = GCL(seed, a, c, m)
-ernie = ERNIE(seed)
-pcg = PCG64Wrapper()
-#pcg2 = PCG(seed)
+multiplicador = 1664525    
+incremento = 1013904223 
+modulo = 2**32       #(normalmente una potencia de 2)
 
 # Parámetros para ItaRNG
-S0, S1, S2 = 1, 2, 3  # Semillas iniciales para ItaRNG
-N = 1000  # Máximo valor deseado en el rango
+ItaRNG_seed_0, ItaRNG_seed_1, ItaRNG_seed_2 = 1, 2, 3  
+max_range = 1000 
 
-ita_rng = ItaRNG(S0, S1, S2, N)
+# Instancias de los generadores
+gcl = GCL(seed, multiplicador, incremento, modulo)
+ernie = ERNIE(seed)
+pcg = PCG64Wrapper()
+ita_rng = ItaRNG(ItaRNG_seed_0, ItaRNG_seed_1, ItaRNG_seed_2, max_range)
+#pcg2 = PCG(seed)
 
-# marsenne_twister = MersenneTwister() NO LO UTILIZAMOS
 
+# Para correr las imagenes y test, agregar los generadores a esta lista !!!
 generadores = [gcl, ernie, ita_rng, pcg]
