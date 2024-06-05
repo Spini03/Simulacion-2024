@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-from gen_pseudo_00 import generadores
+from gen_pseudo import generadores
 
 def generar_imagen_ruido(generador, tamaño=(256, 256)):
     ruido = np.zeros(tamaño)
