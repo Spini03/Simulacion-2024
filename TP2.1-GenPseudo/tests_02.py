@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.stats
 
-from gen_pseudo import generadores
+from gen_pseudo_00 import generadores
 
 # Prueba Chi-cuadrado (Chi-square test)
 def chi_square_test(data, bins=10, alpha=0.05):
