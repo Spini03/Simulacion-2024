@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 # Parámetros de la distribución binomial
 p = .7  # Probabilidad de éxito
-n = 10  # Cant números aleatorios
+n = 10  # Cant intentos aleatorios
 num_samples = 1000
 
 
@@ -19,7 +19,7 @@ def calcula_binomial(p, n, num_samples=1000):
     return total
 
 
-# Aplicar la transformación inversa para obtener números con distribución exponencial
+# Guardar los resultados del binomial
 binomial_random_numbers = calcula_binomial(p, n, num_samples)
 
 # Graficar el histograma de los números generados
