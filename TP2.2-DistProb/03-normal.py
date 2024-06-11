@@ -23,7 +23,7 @@ plt.hist(normal_random_numbers, bins=30, density=True, alpha=0.6, color='g', lab
 # Graficar la función de densidad teórica
 x = np.linspace(np.min(normal_random_numbers), np.max(normal_random_numbers), 10000)
 y = (1 / (sigma * np.sqrt(2 * np.pi))) * np.exp(-0.5 * ((x - mu) / sigma) ** 2)
-plt.plot(x, y, 'r-', lw=2, label='Función teórica')
+plt.plot(x, y, 'k-', lw=2, label='Función teórica')  # Cambiamos el color de la línea a negro
 
 # Configuración de la gráfica
 plt.xlabel('Valor')

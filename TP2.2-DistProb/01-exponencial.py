@@ -18,7 +18,7 @@ plt.hist(exponential_random_numbers, bins=30, density=True, alpha=0.6, color='g'
 # Graficar la función de densidad teórica
 x = np.linspace(0, np.max(exponential_random_numbers), 10000)
 y = lambda_param * np.exp(-lambda_param * x)
-plt.plot(x, y, 'r-', lw=2, label='Función teórica')
+plt.plot(x, y, 'k-', lw=2, label='Función teórica')  # Cambiamos el color de la línea a negro
 
 # Configuración de la gráfica
 plt.xlabel('Valor')
