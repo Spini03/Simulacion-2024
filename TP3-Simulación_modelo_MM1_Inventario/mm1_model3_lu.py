@@ -1,6 +1,10 @@
 import random
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
+import io
+
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8')
 
 class MM1QueueSimulation:
     def __init__(self, arrival_rate, service_rate, simulation_time, queue_capacity=None):
