@@ -15,6 +15,7 @@ class InventorySimulator:
         self.max_time = max_time
         
         self.time = 0
+        self.last_event_time = 0
         self.next_event_time = 0
         self.order_arrival_time = float('inf')
         
@@ -35,12 +36,15 @@ class InventorySimulator:
             self.process_demand()
     
     def process_demand(self):
+        time_diff = self.next_event_time - self.last_event_time
+        self.total_holding_cost += self.holding_cost * self.inventory * time_diff
+        
+        self.last_event_time = self.next_event_time
         self.time = self.next_event_time
         demand = np.random.poisson(self.demand_mean)
         
         if demand <= self.inventory:
             self.inventory -= demand
-            self.total_holding_cost += self.holding_cost * self.inventory * (self.next_event_time - self.time)
         else:
             shortage = demand - self.inventory
             self.total_shortage_cost += self.shortage_cost * shortage
@@ -53,6 +57,10 @@ class InventorySimulator:
         self.inventory_history.append((self.time, self.inventory))
     
     def process_order_arrival(self):
+        time_diff = self.order_arrival_time - self.last_event_time
+        self.total_holding_cost += self.holding_cost * self.inventory * time_diff
+        
+        self.last_event_time = self.order_arrival_time
         self.time = self.order_arrival_time
         self.inventory += self.order_quantity
         self.order_arrival_time = float('inf')
